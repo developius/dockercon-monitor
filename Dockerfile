@@ -1,4 +1,4 @@
-FROM armhf/python-slim:2.7.13
+FROM armhf/python:slim-2.7.13
 
 WORKDIR /app
 COPY requirements.txt .
