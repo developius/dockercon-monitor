@@ -8,4 +8,5 @@ A Raspberry Pi based monitor for the Swarm!
 ## Building (optional)
 
 `docker build -t developius/swarm-app-monitor .`
+
 _Note: requires a running redis instance at `<redis host>`_
