@@ -3,7 +3,6 @@ A Raspberry Pi based monitor for the [Swarm](https://github.com/developius/docke
 
 ## Running
 
-### .env file
 Create a `.env` file in the current directory with these lines, then save & close it:
 
 ```
@@ -11,7 +10,7 @@ REDIS_HOST=<redis host>
 REDIS_PASSWD=<redis password>
 ```
 
-`docker run -ti --rm --privileged --device /dev/gpiomem:/dev/gpiomem --env-file .env developius/swarm-app-monitor:latest`
+`docker run -ti --rm --privileged --device /dev/gpiomem:/dev/gpiomem --env-file .env --restart=on-failure developius/swarm-app-monitor:latest`
 
 _Note: requires a running redis instance at `<redis host>` with password `<redis password>`_
 
