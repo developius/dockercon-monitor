@@ -15,7 +15,10 @@ right = AngularServo(12, min_angle = 180, max_angle = 0, min_pulse_width=0.7/100
 
 def translate(value):
   valueScaled = value / 8.0 # highest value we'll get from log(reqs) (touchwood)
-  return valueScaled * 180
+  valueScaled = valueScaled * 180
+  if valueScaled > 146: return 146
+  if valueScaled < 34: return 36
+  return valueScaled
 
 for msg in pubsub.listen():
   if msg['type'] == 'pmessage':
@@ -33,10 +36,8 @@ for msg in pubsub.listen():
 
     angle = 0
     if reqs > 0: angle = math.log(reqs)
-    if containers[container]['servo'] == left and angle > 146: angle = 146
-    if containers[container]['servo'] == right and angle < 34: angle = 34
-
-    containers[container]['servo'].angle = translate(angle)
+    angle = translate(angle)
+    containers[container]['servo'].angle = angle
 
     output = []
     for container, data in containers.iteritems():
