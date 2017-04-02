@@ -1,5 +1,5 @@
 # dockercon-monitor
-A Raspberry Pi based monitor for the Swarm!
+A Raspberry Pi based monitor for the [Swarm](https://github.com/developius/dockercon-swarm-app/)!
 
 ## Running
 
