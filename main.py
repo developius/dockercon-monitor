@@ -3,7 +3,7 @@ import gpiozero, redis, os, math
 from gpiozero import AngularServo
 from time import sleep
 
-r = redis.StrictRedis(host=os.environ['REDIS_HOST'], port=6379, db=0)
+r = redis.StrictRedis(host=os.environ['REDIS_HOST'], port=6379, db=0, password=o.environ['REDIS_PASSWD'])
 pubsub = r.pubsub()
 pubsub.psubscribe('*')
 

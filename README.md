@@ -3,7 +3,7 @@ A Raspberry Pi based monitor for the [Swarm](https://github.com/developius/docke
 
 ## Running
 
-`docker run -ti --rm --privileged --device /dev/gpiomem:/dev/gpiomem --env REDIS_HOST=<redis host> developius/swarm-app-monitor:latest`
+`docker run -ti --rm --privileged --device /dev/gpiomem:/dev/gpiomem --env REDIS_HOST=<redis host> --env REDIS_PASSWD=<redis passwd> developius/swarm-app-monitor:latest`
 
 ## Building (optional)
 
