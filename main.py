@@ -33,8 +33,8 @@ for msg in pubsub.listen():
 
     angle = 0
     if reqs > 0: angle = math.log(reqs)
-    if containers[container]['servo'] == left && angle > 146: angle = 146
-    if containers[container]['servo'] == right && angle < 34: angle = 34
+    if containers[container]['servo'] == left and angle > 146: angle = 146
+    if containers[container]['servo'] == right and angle < 34: angle = 34
 
     containers[container]['servo'].angle = translate(angle)
 
