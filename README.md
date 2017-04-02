@@ -1,8 +1,10 @@
-# DockerCon Monitor
-A Raspberry Pi based monitor for the Swarm, updating in real time!
+# dockercon-monitor
+A Raspberry Pi based monitor for the Swarm!
 
-## Running the monitor
+## Running
 
-`docker run --rm --env REDIS_HOST=<redis host> -ti developius/dockercon-monitor-armhf:latest`
+`docker run -ti --rm --privileged --device /dev/gpiomem:/dev/gpiomem --env REDIS_HOST=<redis host> developius/swarm-app-monitor:latest`
 
-_Note: requires a running redis instance at `<redis host>`_
+## Building
+
+`docker build -t developius/swarm-app-monitor .`
