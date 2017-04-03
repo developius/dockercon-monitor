@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-import gpiozero, redis, os, math
+import gpiozero, redis, os, math, datetime
 from gpiozero import AngularServo
 from time import sleep
 
@@ -27,17 +27,36 @@ for msg in pubsub.listen():
     if container in containers: containers[container]['reqs'] = reqs
     else:
       if 'left' not in used_containers:
-        containers[container] = { 'servo': left, 'reqs': reqs }
+        containers[container] = {
+          'servo': left,
+          'servo_name': 'left',
+          'reqs': reqs,
+          'lastseen': datetime.datetime.now()
+        }
         used_containers.append('left')
       elif 'right' not in used_containers:
-        containers[container] = { 'servo': right, 'reqs': reqs }
+        containers[container] = {
+          'servo': right,
+          'servo_name': 'right',
+          'reqs': reqs,
+          'lastseen': datetime.datetime.now()
+          }
         used_containers.append('right')
-      else: print('Could not assign a servo to container {}, they are all in use'.format(container))
+      else:
+        print('Could not assign a servo to container {}, they are all in use'.format(container))
+        continue # move on with messages
 
     angle = 0
     if reqs > 0: angle = math.log(reqs)
     angle = translate(angle)
     containers[container]['servo'].angle = angle
+    containers[container]['lastseen'] = datetime.datetime.now()
+
+    for key in containers.keys():
+      if containers[key]['lastseen'] < datetime.datetime.now() - datetime.timedelta(seconds=3): # 3 missed updates
+        print('Removing container {} as it\'s been unresponsive for 3s'.format(key))
+        used_containers.remove(containers[key]['servo_name']) # make the servo available again
+        containers.pop(key, None) # remove the container
 
     output = []
     for container, data in containers.iteritems():
