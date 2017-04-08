@@ -10,7 +10,7 @@ REDIS_HOST=<redis host>
 REDIS_PASSWD=<redis password>
 ```
 
-`docker run -ti --privileged --device /dev/gpiomem:/dev/gpiomem --env-file .env --restart=on-failure developius/swarm-app-monitor:latest`
+`docker run -ti --privileged --device /dev/gpiomem:/dev/gpiomem --env-file .env --restart=always developius/swarm-app-monitor:latest`
 
 _Note: requires a running redis instance at `<redis host>` with password `<redis password>`_
 
