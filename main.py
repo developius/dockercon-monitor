@@ -26,15 +26,7 @@ for msg in pubsub.listen():
     reqs = int(msg['data'])
     if container in containers: containers[container]['reqs'] = reqs
     else:
-      if 'left' not in used_containers:
-        containers[container] = {
-          'servo': left,
-          'servo_name': 'left',
-          'reqs': reqs,
-          'lastseen': datetime.datetime.now()
-        }
-        used_containers.append('left')
-      elif 'right' not in used_containers:
+      if 'right' not in used_containers:
         containers[container] = {
           'servo': right,
           'servo_name': 'right',
@@ -42,6 +34,14 @@ for msg in pubsub.listen():
           'lastseen': datetime.datetime.now()
           }
         used_containers.append('right')
+      elif 'left' not in used_containers:
+        containers[container] = {
+          'servo': left,
+          'servo_name': 'left',
+          'reqs': reqs,
+          'lastseen': datetime.datetime.now()
+        }
+        used_containers.append('left')
       else:
         print('Could not assign a servo to container {}, they are all in use'.format(container))
         continue # move on with messages
