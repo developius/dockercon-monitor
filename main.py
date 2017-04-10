@@ -13,6 +13,12 @@ containers = {}
 left = AngularServo(18, min_angle = 180, max_angle = 0, min_pulse_width=0.7/1000, max_pulse_width=2.3/1000)
 right = AngularServo(12, min_angle = 180, max_angle = 0, min_pulse_width=0.7/1000, max_pulse_width=2.3/1000)
 
+left.mid()
+right.mid()
+left.detach()
+right.detach()
+time.sleep(10)
+
 def translate(value):
   valueScaled = value / 8.0 # highest value we'll get from log(reqs) (touchwood)
   valueScaled = valueScaled * 180
