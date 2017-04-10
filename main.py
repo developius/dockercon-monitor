@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import gpiozero, redis, os, math, datetime
 from gpiozero import AngularServo
-from time import sleep
+import time
 
 r = redis.StrictRedis(host=os.environ['REDIS_HOST'], port=6379, db=0, password=os.environ['REDIS_PASSWD'])
 pubsub = r.pubsub()
