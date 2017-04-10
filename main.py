@@ -29,6 +29,14 @@ def translate(value):
 
 for msg in pubsub.listen():
   if msg['type'] == 'pmessage':
+
+    # clean out stale containers
+    for key in containers.keys():
+      if containers[key]['lastseen'] < datetime.datetime.now() - datetime.timedelta(seconds=3): # 3 missed updates
+        print('Removing container {} as it\'s been unresponsive for 3s'.format(key))
+        used_containers.remove(containers[key]['servo_name']) # make the servo available again
+        containers.pop(key, None) # remove the container
+
     container = msg['channel']
     reqs = int(msg['data'])
     if container in containers: containers[container]['reqs'] = reqs
@@ -58,12 +66,6 @@ for msg in pubsub.listen():
     angle = translate(angle)
     containers[container]['servo'].angle = angle
     containers[container]['lastseen'] = datetime.datetime.now()
-
-    for key in containers.keys():
-      if containers[key]['lastseen'] < datetime.datetime.now() - datetime.timedelta(seconds=3): # 3 missed updates
-        print('Removing container {} as it\'s been unresponsive for 3s'.format(key))
-        used_containers.remove(containers[key]['servo_name']) # make the servo available again
-        containers.pop(key, None) # remove the container
 
     output = []
     for container, data in containers.iteritems():
