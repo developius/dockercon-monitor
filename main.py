@@ -15,6 +15,7 @@ right = AngularServo(12, min_angle = 180, max_angle = 0, min_pulse_width=0.7/100
 
 left.mid()
 right.mid()
+time.sleep(0.25)
 left.detach()
 right.detach()
 time.sleep(10)
